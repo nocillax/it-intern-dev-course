@@ -11,7 +11,7 @@ module.exports = (req, res) => {
   const x = parseInt(xStr, 10);
   const y = parseInt(yStr, 10);
 
-  if (x <= 0 || y <= 0) {
+  if (x < 0 || y < 0) {
     res.status(200).send("NaN");
     return;
   }
