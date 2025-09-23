@@ -1,3 +1,5 @@
+// Bruteforce solution to find the LCS
+
 let strings = process.argv.slice(2);
 if (strings.length === 0) console.log("");
 else {

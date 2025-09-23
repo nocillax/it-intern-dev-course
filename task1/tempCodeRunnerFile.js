@@ -1,1 +1,1 @@
-console.log(x);
+let i = 0; i < strings.length; i++
