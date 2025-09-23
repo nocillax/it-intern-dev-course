@@ -6,17 +6,20 @@ const gcd = (x, y) => {
 };
 
 const lcm = (x, y) => {
-  if (x <= 0 || y <= 0) return NaN;
   return (x * y) / gcd(x, y);
 };
 
 module.exports = (req, res) => {
-  const x = parseInt(req.query.x);
-  const y = parseInt(req.query.y);
+  const xStr = parseInt(req.query.x);
+  const yStr = parseInt(req.query.y);
 
-  if (isNaN(x) || isNaN(y) || x <= 0 || y <= 0) {
+  if (!/^[1-9]\d*$/.test(xStr) || !/^[1-9]\d*$/.test(yStr)) {
     res.status(200).send("NaN");
-  } else {
-    res.status(200).send(lcm(x, y).toString());
+    return;
   }
+
+  const x = parseInt(xStr, 10);
+  const y = parseInt(yStr, 10);
+
+  res.status(200).send(lcm(x, y).toString());
 };
