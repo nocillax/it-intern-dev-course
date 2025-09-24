@@ -1,28 +1,79 @@
-const readline = require("readline");
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+const prompt = require("prompt-sync")({ sigint: true });
 
-const randomNumber = (b) => {
-  return Math.floor(Math.random() * b);
+const randomNum = (a) => {
+  return Math.floor(Math.random() * a) + 1;
 };
 
-let noOfBoxes = 0;
+let numOfBoxes = parseInt(prompt("Enter number of boxes: "));
 
-rl.question("Enter Number of Boxes.. ", (number) => {
-  noOfBoxes = parseInt(number, 10);
-  const gunInsideBox = randomNumber(noOfBoxes);
+let numMorty1 = randomNum(numOfBoxes);
 
-  console.log("Gun is in box number: ", gunInsideBox);
+console.log("Morty Chose his first number.");
 
-  rl.question("Enter Box Number to open: ", (answer) => {
-    const boxNumber = parseInt(answer, 10);
-    if (boxNumber === gunInsideBox) {
-      console.log("You are correct");
-    } else {
-      console.log("You are wrong");
-    }
-    rl.close();
-  });
-});
+let numRick1 = parseInt(prompt("Enter Rick's first number: "));
+
+const gunHiddeninBox = (numMorty1 + numRick1) % numOfBoxes;
+
+console.log("The gun is hidden in a box.");
+
+let rickChoice = parseInt(prompt("Enter Rick's choice: "));
+
+let numMorty2 = randomNum(numOfBoxes);
+
+console.log("Morty Chose his second number.");
+
+let numRick2 = parseInt(prompt("Enter Rick's second number: "));
+
+let secondBox = (numMorty2 + numRick2) % (numOfBoxes - 1);
+
+console.log("So the boxes to save are " + rickChoice + " and " + secondBox);
+
+let choice = parseInt(
+  prompt("Do you want to change your choice? (1 for Yes / 0 for No): ")
+);
+
+if (choice === 1) {
+  rickChoice = parseInt(prompt("Enter Rick's new choice: "));
+}
+
+console.log("Morty's First Number: " + numMorty1);
+console.log(
+  "1st Fair Number " +
+    "(" +
+    numMorty1 +
+    " + " +
+    numRick1 +
+    ") % " +
+    numOfBoxes +
+    " = " +
+    gunHiddeninBox
+);
+
+console.log("Morty's Second Number: " + numMorty2);
+console.log(
+  "2nd Fair Number " +
+    "(" +
+    numMorty2 +
+    " + " +
+    numRick2 +
+    ") % (" +
+    numOfBoxes +
+    " - 1) = " +
+    secondBox
+);
+
+if (secondBox != gunHiddeninBox && rickChoice != gunHiddeninBox) {
+  secondBox = gunHiddeninBox;
+}
+
+console.log("Rick's Final Choice: " + rickChoice);
+
+console.log("Boxes that are saved: " + rickChoice + " and " + secondBox);
+
+console.log("Gun was in box: " + gunHiddeninBox);
+
+if (rickChoice === gunHiddeninBox) {
+  console.log("Rick is safe!");
+} else {
+  console.log("Rick is dead!");
+}
