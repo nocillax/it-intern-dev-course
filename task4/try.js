@@ -1,7 +1,7 @@
 const prompt = require("prompt-sync")({ sigint: true });
 
 const randomNum = (a) => {
-  return Math.floor(Math.random() * a) + 1;
+  return Math.floor(Math.random() * a);
 };
 
 let numOfBoxes = parseInt(prompt("Enter number of boxes: "));
